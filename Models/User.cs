@@ -38,6 +38,8 @@ namespace EgyptTourism.Models
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
+        // Navigation Properties
+
         // Time/Date stamps
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
