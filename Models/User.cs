@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,6 +40,8 @@ namespace EgyptTourism.Models
         public string ConfirmPassword { get; set; }
 
         // Navigation Properties
+        List<Wishlist> Wishlists { get; set; }
+        List<Comment> Comments { get; set; }
 
         // Time/Date stamps
         public DateTime CreatedAt { get; set; } = DateTime.Now;
