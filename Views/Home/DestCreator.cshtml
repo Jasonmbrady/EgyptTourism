@@ -1,0 +1,26 @@
+@model Destination;
+
+<form asp-action="CreateDest" asp-controller="Home" method="POST">
+  <div class="form-group">
+    <label asp-for="Name"></label>
+    <input type="text" class="form-control" asp-for="Name" placeholder="Enter Name">
+  </div>
+  <div class="form-group">
+    <label asp-for="Description"></label>
+    <input type="text" class="form-control" asp-for="Description" placeholder="Enter Description">
+  </div>
+  <div class="form-group">
+    <label asp-for="ImgURL"></label>
+    <input type="text" class="form-control" asp-for="ImgURL" placeholder="Enter Image URL">
+  </div>
+    <div class="form-group">
+        <label asp-for="Type">Example select</label>
+        <select class="form-control" asp-for="Type">
+            <option>Pharaoh</option>
+            <option>Coptic</option>
+            <option>Islamic</option>
+            <option>Recreation</option>
+        </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
