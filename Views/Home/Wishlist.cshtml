@@ -12,11 +12,17 @@
 <hr>
 <ul>
 @foreach (Wishlist wish in Model)
-{
-    <li>
-        <h3>
-            <a asp-action="DestinationDetail" asp-controller="Home" asp-route-id="@wish.DestinationId">@wish.Destination.Name</a>
-        </h3>
-    </li>
+{   <div class="row">
+        <div class="col-md-6">
+            <li>
+                <h3>
+                    <a asp-action="DestinationDetail" asp-controller="Home" asp-route-id="@wish.DestinationId">@wish.Destination.Name</a>
+                </h3>
+            </li>
+        </div>
+        <div class="col-md-6 text-center">
+            <a asp-action="RemoveWishlist" asp-controller="Home" asp-route-WishId="@wish.WishlistId">Remove from Wishlist</a>
+        </div>
+    </div>
 }
 </ul>

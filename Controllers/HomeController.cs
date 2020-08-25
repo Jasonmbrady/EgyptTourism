@@ -219,12 +219,30 @@ namespace EgyptTourism.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Wishlist newWishlist = new Wishlist();
-            newWishlist.UserId = UserId;
-            newWishlist.DestinationId = DestId;
+            Wishlist exists = db.Wishlists.FirstOrDefault(w => w.UserId == UserId && w.DestinationId == DestId);
+            if (exists == null)
+            {
+                Wishlist newWishlist = new Wishlist();
+                newWishlist.UserId = UserId;
+                newWishlist.DestinationId = DestId;
 
-            db.Wishlists.Add(newWishlist);
-            db.SaveChanges();
+                db.Wishlists.Add(newWishlist);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Landing");
+        }
+
+        [HttpGet]
+        [Route("/wishlist/remove/{WishId}")]
+        public IActionResult RemoveWishlist(int WishId)
+        {
+            Wishlist selectedWishlist = db.Wishlists.FirstOrDefault(w => w.WishlistId == WishId);
+            if (selectedWishlist != null)
+            {
+                db.Wishlists.Remove(selectedWishlist);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Landing");
         }
 
