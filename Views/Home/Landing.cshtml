@@ -1,4 +1,4 @@
-@model List<Destination>
+
 
 <div class="row">
     <div class="col-md-8 text-center" >
@@ -6,15 +6,54 @@
     </div>
     <div class="col-md-4 text-right"><a asp-action="Logout" asp-controller="Home">Logout</a></div>
 </div>
+<h3>Pharaoh Era Desitinations</h3>
 @{
-    foreach (Destination destination in Model)
+    foreach (Destination destination in ViewBag.Pharaoh)
     {
         <div class="card" style="width: 36rem;">
-            <a asp-action="/destination/@destination.DestinationId" asp-controller="Home"><img src="@destination.ImgURL" alt="image of destination" class="card-img-top"></a>
+            <a href="/destination/@destination.DestinationId"><img src="@destination.ImgURL" alt="image of destination" class="card-img-top"></a>
             <div class="card-body">
-                <a asp-action="/destination/@destination.DestinationId" asp-controller="Home"><p class="card-text">@destination.Name</p></a>
+                <a href="/destination/@destination.DestinationId"><p class="card-text">@destination.Name</p></a>
             </div>
 
         </div>
     }
+}
+
+<h3>Coptic Destinations</h3>
+@foreach (var destination in ViewBag.Coptic)
+{
+    <div class="card" style="width: 36rem;">
+            <a href="/destination/@destination.DestinationId"><img src="@destination.ImgURL" alt="image of destination" class="card-img-top"></a>
+            <div class="card-body">
+                <a href="/destination/@destination.DestinationId"><p class="card-text">@destination.Name</p></a>
+            </div>
+
+        </div>
+}
+
+
+<h3>Islamic</h3>
+@foreach (var destination in ViewBag.Islamic)
+{
+    <div class="card" style="width: 36rem;">
+            <a href="/destination/@destination.DestinationId"><img src="@destination.ImgURL" alt="image of destination" class="card-img-top"></a>
+            <div class="card-body">
+                <a href="/destination/@destination.DestinationId"><p class="card-text">@destination.Name</p></a>
+            </div>
+
+        </div>
+}
+
+
+<h3>Recreation</h3>
+@foreach (var destination in ViewBag.Recreation)
+{
+    <div class="card" style="width: 36rem;">
+            <a href="/destination/@destination.DestinationId"><img src="@destination.ImgURL" alt="image of destination" class="card-img-top"></a>
+            <div class="card-body">
+                <a href="/destination/@destination.DestinationId"><p class="card-text">@destination.Name</p></a>
+            </div>
+
+        </div>
 }

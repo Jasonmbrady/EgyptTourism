@@ -106,9 +106,37 @@ namespace EgyptTourism.Controllers
             {
                 return RedirectToAction("Index");
             }
-            List<Destination> allDestinations = new List<Destination>();
-            allDestinations = db.Destinations.ToList();
-            return View("Landing", allDestinations);
+            ViewBag.Pharaoh = db.Destinations
+            .Where(dest => dest.Type == "Pharaoh")
+            .ToList();
+
+            ViewBag.Coptic = db.Destinations
+            .Where(dest => dest.Type == "Coptic")
+            .ToList();
+
+            ViewBag.Islamic = db.Destinations
+            .Where(dest => dest.Type == "Islamic")
+            .ToList();
+
+            ViewBag.Recreation = db.Destinations
+            .Where(dest => dest.Type == "Recreation")
+            .ToList();
+
+            return View("Landing");
+
+        }
+
+        [HttpGet("/destination/{id}")]
+        public IActionResult DestinationDetail(int id)
+        {
+             if (!isLoggedIn)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.SelectedDestination = db.Destinations
+            .FirstOrDefault(dest => dest.DestinationId == id);
+            return View("DestinationDetail");
         }
 
         [HttpGet]
