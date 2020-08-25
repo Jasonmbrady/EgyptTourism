@@ -1,3 +1,5 @@
+@model Comment;
+
 <h1>Destination Detail</h1>
 
 <h3>Destination Name: @ViewBag.SelectedDestination.Name</h3>
@@ -8,5 +10,17 @@
 
 <h3>Tourism Type: @ViewBag.SelectedDestination.Type</h3>
 
-
-
+@foreach (Comment comment in ViewBag.DestinationComments)
+{
+    <div class="card">
+        <p>@comment.Text</p>
+        <p>-@comment.User.FirstName</p>
+    </div>
+}
+<form asp-action="CreateComment" asp-controller="Home" asp-route-DestId="@ViewBag.SelectedDestination.DestinationId" method="POST">
+ <div class="form-group">
+    <label asp-for="Text">Add A Comment:</label>
+    <textarea class="form-control" asp-for="Text" rows="3"></textarea>
+  </div>
+  <button>Submit</button>
+</form>

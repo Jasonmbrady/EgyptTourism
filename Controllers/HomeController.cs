@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using EgyptTourism.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace EgyptTourism.Controllers
 {
@@ -129,14 +130,16 @@ namespace EgyptTourism.Controllers
         [HttpGet("/destination/{id}")]
         public IActionResult DestinationDetail(int id)
         {
-             if (!isLoggedIn)
+            if (!isLoggedIn)
             {
                 return RedirectToAction("Index");
             }
 
             ViewBag.SelectedDestination = db.Destinations
             .FirstOrDefault(dest => dest.DestinationId == id);
+            ViewBag.DestinationComments = db.Comments.Where(com => com.DestinationId == id).Include(com => com.User).ToList();
             return View("DestinationDetail");
+
         }
 
         [HttpGet]
@@ -174,6 +177,27 @@ namespace EgyptTourism.Controllers
             db.SaveChanges();
             return RedirectToAction("Landing");
         }
+
+        [HttpPost]
+        [Route("/comment/create/{DestId}")]
+        public IActionResult CreateComment(int DestId, Comment newComment)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index");
+            }
+            if (ModelState.IsValid == false)
+            {
+                return View("DestinationDetail");
+            }
+            newComment.UserId = (int)uid;
+            newComment.DestinationId = DestId;
+            db.Comments.Add(newComment);
+            db.SaveChanges();
+            return RedirectToAction("DestinationDetail", new { id = DestId });
+
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
