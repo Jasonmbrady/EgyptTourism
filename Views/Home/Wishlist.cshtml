@@ -1,0 +1,22 @@
+@model List<Wishlist>;
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>@Context.Session.GetString("UserName")'s Destination Wishlist</h2>
+    </div>
+    <div class="col-md-4 text-center">
+    <p><a asp-action="Landing" asp-controller="Home">Home</a> | 
+    <a asp-action="Logout" asp-asp-controller="Home">Logout</a></p> 
+  </div>
+</div>
+<hr>
+<ul>
+@foreach (Wishlist wish in Model)
+{
+    <li>
+        <h3>
+            <a asp-action="DestinationDetail" asp-controller="Home" asp-route-id="@wish.DestinationId">@wish.Destination.Name</a>
+        </h3>
+    </li>
+}
+</ul>

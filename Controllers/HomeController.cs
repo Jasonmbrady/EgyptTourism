@@ -198,6 +198,36 @@ namespace EgyptTourism.Controllers
 
         }
 
+        [HttpGet]
+        [Route("/user/{UserId}/wishlist")]
+        public IActionResult MyWishlist(int UserId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index");
+            }
+            List<Wishlist> myWishlist = new List<Wishlist>();
+            myWishlist = db.Wishlists.Where(w => w.UserId == UserId).Include(w => w.Destination).ToList();
+            return View("Wishlist", myWishlist);
+        }
+
+        [HttpPost]
+        [Route("/User/{UserId}/wishlist/add/{DestId}")]
+        public IActionResult AddWishlist(int UserId, int DestId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index");
+            }
+            Wishlist newWishlist = new Wishlist();
+            newWishlist.UserId = UserId;
+            newWishlist.DestinationId = DestId;
+
+            db.Wishlists.Add(newWishlist);
+            db.SaveChanges();
+            return RedirectToAction("Landing");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

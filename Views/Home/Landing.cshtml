@@ -1,10 +1,15 @@
-
+@{
+    int UserId = (int)Context.Session.GetInt32("UserId");
+}
 
 <div class="row">
     <div class="col-md-8 text-center" >
         <h1>Welcome, @Context.Session.GetString("UserName")</h1>
     </div>
-    <div class="col-md-4 text-right"><a asp-action="Logout" asp-controller="Home">Logout</a></div>
+    <div class="col-md-4 text-right">
+        <a asp-action="Logout" asp-controller="Home">Logout</a> | 
+        <a asp-action="MyWishlist" asp-controller="Home" asp-route-UserId="@UserId">My Wishlist</a>
+    </div>
 </div>
 <h3>Pharaoh Era Desitinations</h3>
 @{
