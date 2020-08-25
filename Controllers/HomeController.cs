@@ -138,6 +138,17 @@ namespace EgyptTourism.Controllers
             ViewBag.SelectedDestination = db.Destinations
             .FirstOrDefault(dest => dest.DestinationId == id);
             ViewBag.DestinationComments = db.Comments.Where(com => com.DestinationId == id).Include(com => com.User).ToList();
+            Wishlist wish = db.Wishlists.FirstOrDefault(w => w.DestinationId == id && w.UserId == (int)HttpContext.Session.GetInt32("UserId"));
+            if (wish != null)
+            {
+                ViewBag.IsWishlisted = true;
+                ViewBag.WishId = (int)wish.WishlistId;
+            }
+            else
+            {
+                ViewBag.IsWishlisted = false;
+                ViewBag.WishId = 0;
+            }
             return View("DestinationDetail");
 
         }

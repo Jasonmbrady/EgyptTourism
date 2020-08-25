@@ -2,6 +2,8 @@
 @{
   int uid = (int)Context.Session.GetInt32("UserId");
   int DestId = ViewBag.SelectedDestination.DestinationId;
+  int WishId = ViewBag.WishId;
+  bool IsWishlisted = ViewBag.IsWishlisted;
 }
 <div class="row">
   <div class="col-md-8">
@@ -20,9 +22,21 @@
 <h3>Description: @ViewBag.SelectedDestination.Description</h3>
 
 <h3>Tourism Type: @ViewBag.SelectedDestination.Type</h3>
-<form asp-action="AddWishlist" asp-controller="Home" asp-route-UserId = "@uid" asp-route-DestId= "@DestId" method="POST">
-  <button class="btn btn-info">Add to my Wishlist!</button>
-</form>
+@{
+
+  if (IsWishlisted == false)
+  {
+  <form asp-action="AddWishlist" asp-controller="Home" asp-route-UserId = "@uid" asp-route-DestId= "@DestId" method="POST">
+    <button class="btn btn-info">Add to my Wishlist!</button>
+  </form>
+  }
+  else
+  {
+  <form asp-action="RemoveWishlist" asp-controller="Home" asp-route-WishId = "@WishId" method="GET">
+    <button class="btn btn-info">Remove from my Wishlist</button>
+  </form>
+  }
+}
 @foreach (Comment comment in ViewBag.DestinationComments)
 {
     <div class="card">
